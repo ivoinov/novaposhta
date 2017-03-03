@@ -36,7 +36,7 @@ class IV_NovaPoshta_AreaController extends Mage_Core_Controller_Front_Action
             if ($areaEntity && $areaEntity->getId()) {
                 /** @var IV_NovaPoshta_Model_Resource_Entity_City_Collection $cities */
                 $cities = $areaEntity->getCities();
-                $this->getResponse()->setBody(json_encode($cities->toArray('reference', 'description')));
+                $this->getResponse()->setBody(json_encode($cities->toArray(array('reference', 'description'))));
 
             } else {
                 $this->getResponse()->setBody(Mage::helper('novaposhta')->getCitiesJson());

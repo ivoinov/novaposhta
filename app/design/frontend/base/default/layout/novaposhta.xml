@@ -21,5 +21,10 @@
                 <template>novaposhta/checkout/onepage/shipping.phtml</template>
             </action>
         </reference>
+        <reference name="head">
+            <action method="addJs">
+                <name>novaposhta/region_updater.js</name>
+            </action>
+        </reference>
     </checkout_onepage_index>
 </layout>

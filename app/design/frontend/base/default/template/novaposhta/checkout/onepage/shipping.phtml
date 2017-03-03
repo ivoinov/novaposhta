@@ -144,5 +144,6 @@
     $('shipping-address-select') && shipping.newAddress(!$('shipping-address-select').value);
 
     var shippingRegionUpdater = new RegionUpdater('shipping:country_id', 'shipping:region', 'shipping:region_id', <?php echo $this->helper('directory')->getRegionJson() ?>, undefined, 'shipping:postcode');
+    shippingRegionUpdater.bindCityUpdate('shipping:region_id', '<?php echo $this->getUrl('novaposhta/area/getCities'); ?>');
     //]]>
 </script>
