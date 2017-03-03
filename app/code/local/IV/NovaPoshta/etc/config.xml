@@ -42,6 +42,11 @@
                     </entity_warehouse>
                 </entities>
             </novaposhta_resource>
+            <directory_resource>
+                <rewrite>
+                    <region_collection>IV_NovaPoshta_Model_Resource_Directory_Region_Collection</region_collection>
+                </rewrite>
+            </directory_resource>
         </models>
         <blocks>
             <novaposhta>
@@ -75,6 +80,15 @@
         </carriers>
     </default>
     <frontend>
+        <routers>
+            <novaposhta>
+                <use>standard</use>
+                <args>
+                    <module>IV_NovaPoshta</module>
+                    <frontName>novaposhta</frontName>
+                </args>
+            </novaposhta>
+        </routers>
         <layout>
             <updates>
                 <iv_novaposhta>

@@ -64,4 +64,18 @@ class IV_NovaPoshta_Model_Entity_Area extends IV_NovaPoshta_Model_Entity_Abstrac
         $this->_init('novaposhta/entity_area');
         parent::_construct();
     }
+
+    /**
+     * Return cities collection for specific area.
+     *
+     * @return Mage_Eav_Model_Entity_Collection_Abstract
+     */
+    public function getCities()
+    {
+        if (!$this->getId()) {
+            Mage::throwException('Can not retrieve cities for are without id');
+        }
+
+        return $this->getResource()->getCities($this);
+    }
 }

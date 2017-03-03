@@ -29,4 +29,17 @@ class IV_NovaPoshta_Model_Resource_Entity_Area extends Mage_Core_Model_Resource_
     {
         $this->_init('novaposhta/entity_area', 'id');
     }
+
+    /**
+     * Return cities collection for specific region.
+     *
+     * @param IV_NovaPoshta_Model_Entity_Area $areaEntity
+     *
+     * @return Mage_Eav_Model_Entity_Collection_Abstract
+     */
+    public function getCities(IV_NovaPoshta_Model_Entity_Area $areaEntity)
+    {
+        return Mage::getResourceModel('novaposhta/entity_city_collection')
+            ->addFieldToFilter('area_id', $areaEntity->getId());
+    }
 }

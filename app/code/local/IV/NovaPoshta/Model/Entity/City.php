@@ -30,6 +30,11 @@
  * @method float getLatitude()
  * @method float getLongitude()
  * @method string getDescription()
+ * @method string getRegionName()
+ * @method string getRegionReference()
+ * @method string getRegionCenterReference()
+ * @method string getRegionSyncStatus()
+ * @method string getRegionSyncedAt()
  * @method integer getAreaId()
  * @method setApiData(array $apiData)
  */
