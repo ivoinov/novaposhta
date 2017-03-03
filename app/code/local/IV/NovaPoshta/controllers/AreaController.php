@@ -30,14 +30,20 @@ class IV_NovaPoshta_AreaController extends Mage_Core_Controller_Front_Action
     {
         $this->getResponse()->clearHeaders();
         $this->getResponse()->setHeader('Content-type', 'application/json');
-        /** @var IV_NovaPoshta_Model_Entity_Area $areaEntity */
-        $areaEntity = Mage::getModel('novaposhta/entity_area')->load($this->_getAreaId());
-        if ($areaEntity && $areaEntity->getId()) {
-            /** @var IV_NovaPoshta_Model_Resource_Entity_City_Collection $cities */
-            $cities = $areaEntity->getCities();
-            $this->getResponse()->setBody(json_encode($cities->toArray('reference', 'description')));
+        if ($this->getRequest()->isAjax()) {
+            /** @var IV_NovaPoshta_Model_Entity_Area $areaEntity */
+            $areaEntity = Mage::getModel('novaposhta/entity_area')->load($this->_getAreaId());
+            if ($areaEntity && $areaEntity->getId()) {
+                /** @var IV_NovaPoshta_Model_Resource_Entity_City_Collection $cities */
+                $cities = $areaEntity->getCities();
+                $this->getResponse()->setBody(json_encode($cities->toArray('reference', 'description')));
+
+            } else {
+                $this->getResponse()->setBody(Mage::helper('novaposhta')->getCitiesJson());
+            }
+        } else {
+            $this->getResponse()->setBody($this->__('Only ajax calls areallowed'));
         }
-        $this->getResponse()->setBody(Mage::helper('novaposhta')->getCitiesJson());
 
         return $this;
     }
