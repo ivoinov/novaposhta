@@ -36,7 +36,7 @@ class IV_NovaPoshta_Model_Command_SyncWarehouses extends IV_NovaPoshta_Model_Com
         /** @var IV_NovaPoshta_Model_Api_Entity_Warehouse $entityApiWarehouse */
         $entityApiWarehouse = Mage::getModel('novaposhta/api_entity_warehouse');
         $entityApiWarehouse->setMethodProperty('SettlementRef', $this->_cityEntity->getReference());
-        while ($warehouses = $entityApiWarehouse->getEntities()) {
+        while ($warehouses = $entityApiWarehouse->request()) {
             foreach ($warehouses as $warehouse) {
                 try {
                     /** @var IV_NovaPoshta_Model_Entity_Warehouse $warehouseModel */

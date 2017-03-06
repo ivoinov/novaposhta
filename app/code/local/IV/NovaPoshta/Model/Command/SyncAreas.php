@@ -29,7 +29,7 @@ class IV_NovaPoshta_Model_Command_SyncAreas extends IV_NovaPoshta_Model_Command_
     {
         $this->_removeAll();
         $entityApiArea = Mage::getModel('novaposhta/api_entity_area');
-        $areas = $entityApiArea->getEntities();
+        $areas = $entityApiArea->request();
         foreach ($areas as $area) {
             try {
                 /** @var IV_NovaPoshta_Model_Entity_Area $areaModel */

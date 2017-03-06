@@ -42,7 +42,7 @@ class IV_NovaPoshta_AreaController extends Mage_Core_Controller_Front_Action
                 $this->getResponse()->setBody(Mage::helper('novaposhta')->getCitiesJson());
             }
         } else {
-            $this->getResponse()->setBody($this->__('Only ajax calls areallowed'));
+            $this->getResponse()->setBody($this->__('Only ajax calls are allowed'));
         }
 
         return $this;

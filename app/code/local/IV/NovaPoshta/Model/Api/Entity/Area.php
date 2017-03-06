@@ -30,7 +30,7 @@
  * @property string                                             $_format
  *
  */
-class IV_NovaPoshta_Model_Api_Entity_Area extends IV_NovaPoshta_Model_Api_Entity_Abstract
+class IV_NovaPoshta_Model_Api_Entity_Area extends IV_NovaPoshta_Model_Api_Abstract
 {
     CONST MODEL_NAME    = 'AddressGeneral';
     CONST CALLED_METHOD = 'getSettlementAreas';
@@ -38,7 +38,7 @@ class IV_NovaPoshta_Model_Api_Entity_Area extends IV_NovaPoshta_Model_Api_Entity
     /**
      * {@inheritdoc}
      */
-    public function getEntities()
+    public function request()
     {
         $this->_initBodyPostFields();
         $result = curl_exec($this->_client);

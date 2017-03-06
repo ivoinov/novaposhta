@@ -18,9 +18,9 @@
  */
 
 /**
- * Class IV_NovaPoshta_Model_Api_Entity_Abstract
+ * Class IV_NovaPoshta_Model_Api_Abstract
  */
-abstract class IV_NovaPoshta_Model_Api_Entity_Abstract
+abstract class IV_NovaPoshta_Model_Api_Abstract
 {
     /**
      * Max amount of returned entity, determined by novaposhta api.
@@ -62,7 +62,7 @@ abstract class IV_NovaPoshta_Model_Api_Entity_Abstract
     protected $_methodProperties = array();
 
     /**
-     * IV_NovaPoshta_Model_Api_Entity_Abstract constructor.
+     * IV_NovaPoshta_Model_Api_Abstract constructor.
      */
     public function __construct()
     {
@@ -92,7 +92,7 @@ abstract class IV_NovaPoshta_Model_Api_Entity_Abstract
      *
      * @return array
      */
-    abstract public function getEntities();
+    abstract public function request();
 
     /**
      * Return model novaposhta model name.

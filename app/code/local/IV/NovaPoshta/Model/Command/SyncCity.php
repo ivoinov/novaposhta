@@ -41,7 +41,7 @@ class IV_NovaPoshta_Model_Command_SyncCity extends IV_NovaPoshta_Model_Command_S
         /** @var IV_NovaPoshta_Model_Api_Entity_City $entityApiCity */
         $entityApiCity = Mage::getModel('novaposhta/api_entity_city');
         $entityApiCity->setMethodProperty('AreaRef', $this->_areaEntity->getReference());
-        while ($cities = $entityApiCity->getEntities()) {
+        while ($cities = $entityApiCity->request()) {
             foreach ($cities as $city) {
                 try {
                     /** @var IV_NovaPoshta_Model_Entity_City $cityModel */
@@ -72,7 +72,7 @@ class IV_NovaPoshta_Model_Command_SyncCity extends IV_NovaPoshta_Model_Command_S
      *
      * @param integer $areaId
      */
-    public function setAreaIds($areaId)
+    public function setAreaId($areaId)
     {
         $this->_areaId = (int)$areaId;
     }

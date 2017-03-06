@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright [2017] Illia Voinov <ilya.voinov@yahoo.com>
  *
@@ -18,32 +17,31 @@
  */
 
 /**
- * Class IV_NovaPoshta_Model_Resource_Entity_City
+ * Class IV_NovaPoshta_Model_Entity_Source_City
  */
-class IV_NovaPoshta_Model_Resource_Entity_City extends Mage_Core_Model_Resource_Db_Abstract
+class IV_NovaPoshta_Model_Entity_Source_City
 {
     /**
-     * {@inheritdoc}
+     * @var array
      */
-    protected function _construct()
-    {
-        $this->_init('novaposhta/entity_city', 'id');
-    }
+    protected $_options = array();
 
     /**
-     * @param string $cityReference
+     * Return all cities.
      *
      * @return array
      */
-    public function loadByReference($cityReference)
+    public function toOptionArray()
     {
-        /** @var Varien_Db_Select $select */
-        $select = $this->_getReadAdapter()->select()->from($this->getMainTable())->where('reference = :reference');
-        $result = $this->_getReadAdapter()->fetchRow($select, array('reference' => $cityReference));
-        if (!$result) {
-            return array();
+        /** @var IV_NovaPoshta_Model_Resource_Entity_City_Collection $cityCollection */
+        $cityCollection = Mage::getResourceModel('novaposhta/entity_city_collection');
+        if (empty($this->_options)) {
+            foreach ($cityCollection as $city) {
+                /** @var IV_NovaPoshta_Model_Entity_City */
+                $this->_options[] = array('value' => $city->getReference(), 'label' => $city->getDescription());
+            }
         }
 
-        return $result;
+        return $this->_options;
     }
 }

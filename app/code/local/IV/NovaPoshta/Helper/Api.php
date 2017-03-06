@@ -24,6 +24,23 @@ class IV_NovaPoshta_Helper_Api extends Mage_Core_Helper_Abstract
 {
     CONST XML_XPATH_API_KEY      = 'carriers/novaposhta/api_key';
     CONST XML_XPATH_API_BASE_URL = 'carriers/novaposhta/api_url';
+    CONST XML_XPATH_CITY_SENDER  = 'carriers/novaposhta/city_sender';
+
+    /**
+     * {@link https://devcenter.novaposhta.ua/docs/services/55702570a0fe4f0cf4fc53ed/operations/55702571a0fe4f0b6483890e}
+     */
+    CONST DELIVERY_TYPE_DOORS_DOORS         = 'DoorsDoors';
+    CONST DELIVERY_TYPE_DOORS_WAREHOUSE     = 'DoorsWarehouse';
+    CONST DELIVERY_TYPE_WAREHOUSE_WAREHOUSE = 'WarehouseWarehouse';
+    CONST DELIVERY_TYPE_WAREHOUSE_DOORS     = 'WarehouseDoors';
+
+    /**
+     * {@link https://devcenter.novaposhta.ua/docs/services/55702570a0fe4f0cf4fc53ed/operations/55702571a0fe4f0b64838909}
+     */
+    CONST CARGO_TYPE_CARGO        = 'Cargo';
+    CONST CARGO_TYPE_DOCUMENTS    = 'Documents';
+    CONST CARGO_TYPE_TIRES_WHEELS = 'TiresWheels';
+    CONST CARGO_TYPE_PALLET       = 'Pallet';
 
     /**
      * Return api base url.
@@ -43,5 +60,10 @@ class IV_NovaPoshta_Helper_Api extends Mage_Core_Helper_Abstract
     public function getApiKey()
     {
         return (string)Mage::getStoreConfig(self::XML_XPATH_API_KEY);
+    }
+
+    public function getCitySenderReference()
+    {
+        return (string)Mage::getStoreConfig(self::XML_XPATH_CITY_SENDER);
     }
 }

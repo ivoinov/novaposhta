@@ -27,4 +27,10 @@
             </action>
         </reference>
     </checkout_onepage_index>
+    <checkout_onepage_shippingmethod>
+        <reference name="root">
+            <block type="novaposhta/carrier_warehouses" name="novaposhta.warehouses" as="novaposhta.warehouses"
+                   output="toHtml" template="novaposhta/carrier/warehouses.phtml"/>
+        </reference>
+    </checkout_onepage_shippingmethod>
 </layout>

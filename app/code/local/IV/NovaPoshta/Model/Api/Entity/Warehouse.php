@@ -29,7 +29,7 @@
  * @property array                                              $_methodProperties
  * @property string                                             $_format
  */
-class IV_NovaPoshta_Model_Api_Entity_Warehouse extends IV_NovaPoshta_Model_Api_Entity_Abstract
+class IV_NovaPoshta_Model_Api_Entity_Warehouse extends IV_NovaPoshta_Model_Api_Abstract
 {
     CONST MODEL_NAME    = 'AddressGeneral';
     CONST CALLED_METHOD = 'getWarehouses';
@@ -47,7 +47,7 @@ class IV_NovaPoshta_Model_Api_Entity_Warehouse extends IV_NovaPoshta_Model_Api_E
     /**
      * {@inheritdoc}
      */
-    public function getEntities()
+    public function request()
     {
         parent::_initBodyPostFields();
         $result = curl_exec($this->_client);

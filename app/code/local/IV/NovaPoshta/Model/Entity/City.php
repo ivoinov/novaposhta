@@ -25,6 +25,7 @@
  * @method IV_NovaPoshta_Model_Entity_City setLongitude(float $longitude)
  * @method IV_NovaPoshta_Model_Entity_City setDescription(string $description)
  * @method IV_NovaPoshta_Model_Entity_City setAreaId(integer $areaId)
+ * @method IV_NovaPoshta_Model_Resource_Entity_City getResource()
  * @method string getReference()
  * @method string getSettlementType()
  * @method float getLatitude()
@@ -67,5 +68,37 @@ class IV_NovaPoshta_Model_Entity_City extends IV_NovaPoshta_Model_Entity_Abstrac
     {
         $this->_init('novaposhta/entity_city');
         parent::_construct();
+    }
+
+    /**
+     * Load city entity by reference.
+     *
+     * @param string $reference
+     *
+     * @return IV_NovaPoshta_Model_Entity_City $this
+     */
+    public function loadByReference($reference)
+    {
+        $this->addData($this->getResource()->loadByReference($reference));
+
+        return $this;
+    }
+
+    /**
+     * Return warehouses in specific city.
+     *
+     * @return array|IV_NovaPoshta_Model_Resource_Entity_Warehouse_Collection
+     */
+    public function getWarehouses()
+    {
+        if ($this->getId()) {
+            /** @var IV_NovaPoshta_Model_Resource_Entity_Warehouse_Collection $warehouseCollection */
+            $warehouseCollection = Mage::getResourceModel('novaposhta/entity_warehouse_collection');
+            $warehouseCollection->addFieldToFilter('city_id', $this->getId());
+
+            return $warehouseCollection;
+        }
+
+        return array();
     }
 }

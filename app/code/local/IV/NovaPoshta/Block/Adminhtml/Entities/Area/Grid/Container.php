@@ -44,6 +44,6 @@ class IV_NovaPoshta_Block_Adminhtml_Entities_Area_Grid_Container extends Mage_Ad
      */
     protected function _getSyncUrl()
     {
-        return Mage::getUrl('adminhtml/novaposhta/syncAreas');
+        return Mage::helper('adminhtml')->getUrl('adminhtml/novaposhta/syncAreas');
     }
 }

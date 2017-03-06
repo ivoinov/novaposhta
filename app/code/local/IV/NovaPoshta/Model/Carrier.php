@@ -34,19 +34,21 @@ class IV_NovaPoshta_Model_Carrier extends Mage_Shipping_Model_Carrier_Abstract
     public function getAllowedMethods()
     {
         return array(
-            'WarehouseWarehouse' => 'Warehouse',
-            'WarehouseDoors'     => 'To address',
+            IV_NovaPoshta_Helper_Api::DELIVERY_TYPE_WAREHOUSE_WAREHOUSE => 'Warehouse',
         );
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function collectRates(Mage_Shipping_Model_Rate_Request $request)
     {
         /** @var Mage_Shipping_Model_Rate_Result $result */
         $result = Mage::getModel('shipping/rate_result');
-        foreach ($request->getAllItems() as $item) {
+        $rateResultMethod = $this->_getWarehouseRate($request);
+        if ($rateResultMethod) {
+            $result->append($rateResultMethod);
         }
-
-        $result->append($this->_getWarehouseRate());
 
         return $result;
     }
@@ -54,19 +56,40 @@ class IV_NovaPoshta_Model_Carrier extends Mage_Shipping_Model_Carrier_Abstract
     /**
      * Get Express rate object
      *
-     * @return Mage_Shipping_Model_Rate_Result_Method
+     * @param Mage_Shipping_Model_Rate_Request $request
+     *
+     * @return Mage_Shipping_Model_Rate_Result_Method|false
      */
-    protected function _getWarehouseRate()
+    protected function _getWarehouseRate(Mage_Shipping_Model_Rate_Request $request)
     {
-        /** @var Mage_Shipping_Model_Rate_Result_Method $rate */
-        $rate = Mage::getModel('shipping/rate_result_method');
-        $rate->setCarrier($this->_code);
-        $rate->setCarrierTitle($this->getConfigData('title'));
-        $rate->setMethod('WarehouseWarehouse');
-        $rate->setMethodTitle('Warehouse');
-        $rate->setPrice(12.3);
-        $rate->setCost(0);
+        if (!empty($request->getDestCity())) {
+            $priceRequestProperties = array(
+                'CityRecipient'       => $request->getDestCity(),
+                'Weight'              => $request->getPackageWeight(),
+                'ServiceType'         => IV_NovaPoshta_Helper_Api::DELIVERY_TYPE_WAREHOUSE_WAREHOUSE,
+                'Cost'                => $request->getPackageValue(),
+                'CargoType'           => IV_NovaPoshta_Helper_Api::CARGO_TYPE_CARGO,
+                'SeatsAmount'         => $request->getPackageQty(),
+                'RedeliveryCalculate' => array('CargoType' => 'Money', 'Amount' => 100),
+            );
+            /** @var IV_NovaPoshta_Model_Api_Delivery_Price $priceDeliveryApi */
+            $priceDeliveryApi = Mage::getModel('novaposhta/api_delivery_price');
+            $priceDeliveryApi->setMethodProperties($priceRequestProperties);
+            $priceRequestResult = $priceDeliveryApi->request();
+            if (isset($priceRequestResult['Cost'])) {
+                /** @var Mage_Shipping_Model_Rate_Result_Method $rate */
+                $rate = Mage::getModel('shipping/rate_result_method');
+                $rate->setCarrier($this->_code);
+                $rate->setCarrierTitle($this->getConfigData('title'));
+                $rate->setMethod('WarehouseWarehouse');
+                $rate->setMethodTitle('Warehouse');
+                $rate->setPrice($priceRequestResult['Cost']);
+                $rate->setCost($priceRequestResult['Cost']);
 
-        return $rate;
+                return $rate;
+            }
+        }
+
+        return false;
     }
 }

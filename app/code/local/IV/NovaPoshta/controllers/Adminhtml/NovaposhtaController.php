@@ -80,7 +80,7 @@ class IV_NovaPoshta_Adminhtml_NovaposhtaController extends Mage_Adminhtml_Contro
             $areaId = $this->getRequest()->getParam('area_id');
             /** @var IV_NovaPoshta_Model_Command_SyncCity $syncCommand */
             $syncCommand = Mage::getModel('novaposhta/command_syncCity');
-            $syncCommand->setAreaIds($areaId);
+            $syncCommand->setAreaId($areaId);
             $syncCommand->sync();
             $this->_redirect('*/*/cities');
         } catch (Mage_Core_Exception $e) {
